@@ -4,7 +4,8 @@
   "description": "Serveur Node.js avec une interface web pour tester la connectivité multijoueur.",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js"
+   "build": "npm build"
+    "start": "npm start"
   },
   "author": "Mauricio Mangituka]",
   "license": "MIT",
