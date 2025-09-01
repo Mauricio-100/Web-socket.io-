@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Client pour Serveur Delta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Client de Test Multijoueur</h1>
+        <div id="status">Statut : Déconnecté</div>
+        <div class="buttons">
+            <button onclick="sendAction('HAUT')">HAUT</button>
+            <button onclick="sendAction('BAS')">BAS</button>
+            <button onclick="sendAction('GAUCHE')">GAUCHE</button>
+            <button onclick="sendAction('DROITE')">DROITE</button>
+            <button onclick="sendAction('A')" class="btn-a">A</button>
+            <button onclick="sendAction('B')" class="btn-b">B</button>
+        </div>
+        <div class="logs">
+            <h2>Actions reçues de l'autre joueur :</h2>
+            <ul id="actions-recues"></ul>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Connexion au serveur
+        const socket = io();
+        const statusDiv = document.getElementById('status');
+        const actionsList = document.getElementById('actions-recues');
+
+        // Confirme la connexion
+        socket.on('connect', () => {
+            statusDiv.textContent = 'Statut : Connecté au serveur ✅';
+            statusDiv.style.color = '#2ecc71';
+        });
+
+        // Gère la déconnexion
+        socket.on('disconnect', () => {
+            statusDiv.textContent = 'Statut : Déconnecté ❌';
+            statusDiv.style.color = '#e74c3c';
+        });
+
+        // Écoute les actions envoyées par le serveur
+        socket.on('action_recue', (message) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `Action reçue : ${message}`;
+            actionsList.prepend(listItem); // Ajoute en haut de la liste
+        });
+
+        // Fonction pour envoyer une action au serveur
+        function sendAction(action) {
+            socket.emit('action_jeu', action);
+        }
+    </script>
+</body>
+</html>
