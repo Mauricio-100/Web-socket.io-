@@ -1,0 +1,15 @@
+{
+  "name": "delta-multiplayer-client-server",
+  "version": "1.0.0",
+  "description": "Serveur Node.js avec une interface web pour tester la connectivité multijoueur.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "author": "Mauricio Mangituka]",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
